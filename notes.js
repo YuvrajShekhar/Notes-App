@@ -6,15 +6,15 @@ const getNotes = function(){
 }
 
 // function to add a new note
-const addNote = function(tittle, body){ 
+const addNote = function(title, body){ 
    const notes = loadNote() //loading the notes file which is in JSON format
    const duplicateNotes = notes.filter(function(note) {
-       return note.tittle === tittle
+       return note.title === title
    }) //function to check whether the title added already exists
 
    if (duplicateNotes.lenght === 0)
     { notes.push({
-        tittle:tittle,
+        title:title,
         body:body
       }) // pushes or appends the arguments title and body into the notes files
     
@@ -24,6 +24,10 @@ const addNote = function(tittle, body){
     else{
        console.log("Title already exists")
    }
+}
+
+const removeNote = function(title){
+   console.log(title)   
 }
 
 const saveNotes = function(notes)

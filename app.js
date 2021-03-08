@@ -9,7 +9,7 @@ const notes = require('./notes.js')
 yargs.command({
     command:'add',
     describe:'Add a new note',
-    builder: { // describe is a object that is used for describing any input put
+    builder: { // builder is a object that is used for describing any input put
         title: {
             describe:'Note title',
             demandOption: true, // when given true, the title argument has to mandatorily be inputed
@@ -31,8 +31,16 @@ yargs.command({
 yargs.command({
     command:'remove',
     describe:'remove a note',
-    handler: function(){
-        console.log('Removing a note!')
+    builder: { 
+        title: {
+            describe:'Note title',
+            demandOption: true, // when given true, the title argument has to mandatorily be inputed
+            type : 'string' // the tittle must be string, if not mentioned it will take anything like boolean 
+
+        },
+    },
+    handler: function(argv){
+        notes.removeNote(argv.title)
     }
 })
 
