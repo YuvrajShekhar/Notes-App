@@ -1,6 +1,6 @@
-const chalk = require('chalk') //module to add colours to the text 
 const yargs = require('yargs') //module to parse the input into sensible data
 const notes = require('./notes.js')
+const chalk = require('chalk')
 
 //console.log(process.argv[2])-->to access the input from command line, the object returns array in which the third element is the input we give in command line
 
