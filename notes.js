@@ -1,16 +1,14 @@
 const fs = require('fs') //calls the function required to read JSON file
 const chalk = require('chalk')
 
-const getNotes = function () {
+const getNotes = () => {
     return 'Your notes...'
 }
 
 // function to add a new note
-const addNote = function (title, body) {
+const addNote = (title, body) => {
     const notes = loadNotes()  //loading the notes file which is in JSON format
-    const duplicateNotes = notes.filter(function (note) {
-        return note.title === title
-    }) //function to check whether the title added already exists
+    const duplicateNotes = notes.filter((note)=> note.title === title) //function to check whether the title added already exists
 
     if (duplicateNotes.length === 0) {
         notes.push({
@@ -24,11 +22,9 @@ const addNote = function (title, body) {
     }
 }
 
-const removeNote = function (title) {
+const removeNote = (title) => {
     const notes = loadNotes()
-    const notesToKeep = notes.filter(function (note) {
-        return note.title !== title
-    })
+    const notesToKeep = notes.filter((note) => note.title !== title)
 
     if (notes.length > notesToKeep.length) {
         console.log(chalk.green.inverse('Note removed!'))
@@ -38,12 +34,12 @@ const removeNote = function (title) {
     }    
 }
 
-const saveNotes = function (notes) {
+const saveNotes = (notes) => {
     const dataJSON = JSON.stringify(notes) //makes the new arguments into JSON file 
     fs.writeFileSync('notes.json', dataJSON) // writes the new argument into the notes file
 }
 
-const loadNotes = function () {
+const loadNotes = () => {
     try {  // try catch function of JS, if a certain block of code throws error in the try block, it prints the catch block. 
         const dataBuffer = fs.readFileSync('notes.json') //reads the json file
         const dataJSON = dataBuffer.toString() // converts the file to un-readable string 
