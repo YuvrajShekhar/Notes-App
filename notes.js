@@ -1,16 +1,17 @@
 const fs = require('fs') //calls the function required to read JSON file
 const chalk = require('chalk')
+const { title } = require('process')
 
-const getNotes = () => {
+/*const getNotes = () => {
     return 'Your notes...'
-}
+}*/
 
 // function to add a new note
 const addNote = (title, body) => {
     const notes = loadNotes()  //loading the notes file which is in JSON format
-    const duplicateNotes = notes.filter((note)=> note.title === title) //function to check whether the title added already exists
-
-    if (duplicateNotes.length === 0) {
+    //const duplicateNotes = notes.filter((note)=> note.title === title) //function to check whether the title added already exists
+    const duplicateNote = notes.find((note) => note.title === title )
+        if (!duplicateNote) {
         notes.push({
             title: title,
             body: body
@@ -34,6 +35,29 @@ const removeNote = (title) => {
     }    
 }
 
+const listNotes = () => {
+
+    const notes = loadNotes()
+    console.log(chalk.inverse('Your Notes'))
+
+    notes.forEach((note)=>{
+        console.log(note.title)
+    })
+}
+
+const readNote = (title) => {
+ 
+    const notes = loadNotes() //loading the note to read the notes 
+    const note = notes.find((note) => note.title===title) //going through each note title, if title matches printing the body
+
+    if(note){
+        console.log(chalk.inverse(note.title))
+        console.log(note.body)
+    }else{
+        console.log(chalk.red.inverse("Note not found"))
+    }
+}
+
 const saveNotes = (notes) => {
     const dataJSON = JSON.stringify(notes) //makes the new arguments into JSON file 
     fs.writeFileSync('notes.json', dataJSON) // writes the new argument into the notes file
@@ -51,7 +75,9 @@ const loadNotes = () => {
  
 // exporting more then 1 function by passing them to required callable names
 module.exports = {
-    getNotes: getNotes,
+    //getNotes: getNotes,
     addNote: addNote,
-    removeNote: removeNote
+    removeNote: removeNote,
+    listNotes: listNotes,
+    readNote: readNote
 }
